@@ -23,12 +23,14 @@ mulExpr: mulExpr MULOP unaryExpr
 unaryExpr: VALUE			# literalExpr
 	| IDENTIFIER			# varExpr
 	| '(' expr ')'			# parenExpr
+	| MINNOTOP unaryExpr	# minnotExpr
 	;
 
-ADDOP: '+'|'-';
+ADDOP: '+';
 MULOP: '*'|'/';
 ANDOP: '&';
 OROP: '|';
+MINNOTOP: '-' | '~';
 
 IDENTIFIER: 'x'|'y'|'z';
 VALUE: [1-9]+[0-9]*;

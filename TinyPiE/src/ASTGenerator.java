@@ -8,6 +8,7 @@ import parser.TinyPiEParser.MulExprContext;
 import parser.TinyPiEParser.OrExprContext;
 import parser.TinyPiEParser.ParenExprContext;
 import parser.TinyPiEParser.VarExprContext;
+import parser.TinyPiEParser.MinnotExprContext;
 
 public class ASTGenerator {	
 	ASTNode translateExpr(ParseTree ctxx) {
@@ -53,6 +54,10 @@ public class ASTGenerator {
 		} else if (ctxx instanceof ParenExprContext) {
 			ParenExprContext ctx = (ParenExprContext) ctxx;
 			return translateExpr(ctx.expr());
+		} else if (ctxx instanceof MinnotExprContext) {
+			MinnotExprContext ctx = (MinnotExprContext) ctxx;
+			ASTNode operand = translateExpr(ctx.unaryExpr());
+			return new ASTUnaryExprNode(ctx.MINNOTOP().getText(), operand);
 		}
 		throw new Error("Unknown parse tree node: "+ctxx.getText());		
 	}
